@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
-use App\User;
-use App\SocialAccount;
+use App\Models\User;
+use App\Models\SocialAccount;
 
 class SocialController extends Controller {
     public function oauthRedirect($provider) {
