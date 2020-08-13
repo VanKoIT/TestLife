@@ -37,4 +37,8 @@ class User extends Authenticatable
     ];
 
     public $timestamps = false;
+
+    public function likes() {
+        $this->hasMany('App\Models\Like')->get();
+    }
 }

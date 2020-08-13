@@ -1,0 +1,63 @@
+// main: ../style.less
+
+.header {
+    width: 100%;
+    height: 80px;
+    background: @black;
+
+    &.fixed {
+        position: fixed;
+        z-index:500;
+    }
+}
+
+.header__logo {
+    width: 80px;
+    height: 80px;
+    background: @red;
+    text-align: center;
+    padding: 18px 16px;
+}
+
+.header__main-page-link {
+    font-weight: bold;
+    line-height: 21px;
+    color: @white;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color .1s linear;
+
+    &:hover {
+        color: @black;
+    }
+}
+
+.header__user {
+    width: 80px;
+    height: 80px;
+    padding: 20px;
+    background: @red;
+    border: 0;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    &:hover:after {
+        transform: scale(1.2);
+    }
+
+    & .hidden {
+        visibility: hidden;
+    }
+}
+
+.header__user:after {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    content: "";
+    width: 40px;
+    height: 40px;
+    background: url('../img/accountLogo.svg') no-repeat;
+    transition: transform .1s linear;
+}

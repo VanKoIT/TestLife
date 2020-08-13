@@ -19,7 +19,7 @@ class CreateAnswersTable extends Migration
                 ->onDelete('cascade');
             $table->text('text');
             $table->string('photo_link')->nullable();
-            $table->boolean('is_correct');
+            $table->boolean('is_correct')->default(0);
         });
     }
 

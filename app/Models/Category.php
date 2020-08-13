@@ -7,4 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     public $timestamps = false;
+
+    public function tests() {
+        return $this->hasMany('App\Models\Test');
+    }
 }

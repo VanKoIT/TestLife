@@ -16,7 +16,7 @@ class CreateTruthDaresTable extends Migration
         Schema::create('truth_dares', function (Blueprint $table) {
             $table->id();
             $table->text('text');
-            $table->boolean('is_truth')->default(1);
+            $table->boolean('is_truth')->default(0);
         });
     }
 

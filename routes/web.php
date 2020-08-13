@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,9 +15,22 @@ use Illuminate\Http\Request;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'TestController@popular');
+
+Route::prefix('tests')->group(function () {
+//    Route::middleware('auth')->group(function () {
+//        Route::match(['get','post'],'add', 'TestController@add')->name('addTest');
+//        Route::post('{id}/delete','TestController@delete')
+//            ->middleware('test.author');
+//    });
+//
+    Route::get('/{id}/questions', 'QuestionController@index')->name('testQuestions');
 });
+
+Route::post('like', 'TestController@like')->middleware('auth')
+    ->name('like');
+Route::get('home', 'HomeController@index')->name('home');
+
 
 /*Route::prefix('login')->namespace('Auth')->group(function () {
     Route::get('{provider}', 'SocialController@oauthRedirect')
@@ -26,4 +39,3 @@ Route::get('/', function () {
          ->name('auth.social.callback');
 });*/
 
-Route::get('home', 'HomeController@index')->name('home');
