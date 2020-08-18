@@ -22,7 +22,7 @@ try {
 window.axios = require('axios');
 
 require('./markup/swiper');
-require('./markup/script');
+require('./markup/welcome');
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

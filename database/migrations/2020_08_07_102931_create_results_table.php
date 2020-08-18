@@ -17,8 +17,7 @@ class CreateResultsTable extends Migration
             $table->id();
             $table->foreignId('attempt_id')->constrained()
                   ->onDelete('cascade');
-            $table->integer('questions_number');
-            $table->integer('questions_success');
+
         });
     }
 

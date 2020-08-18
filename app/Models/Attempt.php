@@ -6,5 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attempt extends Model
 {
-    public $timestamps = false;
+    protected $guarded = ['id'];
+
+    const CREATED_AT = 'passed_at';
+    const UPDATED_AT = null;
+
+    public function answers() {
+        return $this->hasMany('App\Models\UserAnswer');
+    }
 }

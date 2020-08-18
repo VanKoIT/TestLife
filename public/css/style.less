@@ -1,0 +1,39 @@
+@import "helper/vars.less";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('helper/swiper.css');
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+	color: @black;
+    margin: 0;
+	
+    &.no-scroll {
+		overflow: hidden;
+	}
+}
+
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+@import "helper/scrollbar.less";
+@import "blocks/header.less";
+@import "blocks/container.less";
+@import "blocks/center.less";
+@import "blocks/nav.less";
+@import "blocks/minor-pages.less";
+@import "blocks/tests.less";
+@import "blocks/test-preview.less";
+@import "blocks/footer.less";
+@import "blocks/modal.less";
+@import "blocks/registration.less";
+@import "blocks/authorization.less";
+@import "helper/hidden.less";

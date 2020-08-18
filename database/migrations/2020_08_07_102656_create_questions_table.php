@@ -15,8 +15,6 @@ class CreateQuestionsTable extends Migration {
             $table->id();
             $table->foreignId('test_id')->constrained()
                   ->onDelete('cascade');
-            $table->foreignId('type_id')->constrained('question_types')
-                  ->onDelete('cascade');
             $table->text('text');
             $table->string('photo_link')->nullable();
         });

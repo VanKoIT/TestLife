@@ -19,8 +19,9 @@ class CreateAttemptsTable extends Migration
                   ->onDelete('cascade');
             $table->foreignId('test_id')->constrained()
                   ->onDelete('cascade');
-            $table->timestamp('begin_on', 0);
-            $table->dateTime('finish_at', 0);
+            $table->timestamp('passed_at', 0);
+            $table->integer('questions_number');
+            $table->integer('questions_success');
         });
     }
 

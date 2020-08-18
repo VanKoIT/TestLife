@@ -15,27 +15,21 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', 'TestController@popular');
-
-Route::prefix('tests')->group(function () {
-//    Route::middleware('auth')->group(function () {
-//        Route::match(['get','post'],'add', 'TestController@add')->name('addTest');
-//        Route::post('{id}/delete','TestController@delete')
-//            ->middleware('test.author');
-//    });
-//
-    Route::get('/{id}/questions', 'QuestionController@index')->name('testQuestions');
-});
-
-Route::post('like', 'TestController@like')->middleware('auth')
-    ->name('like');
+Route::get('/', 'TestController@index');
 Route::get('home', 'HomeController@index')->name('home');
 
+Route::middleware('auth')->group(function () {
+    Route::get('test/{testId}','QuestionController@index')->name('testQuestions');
 
-/*Route::prefix('login')->namespace('Auth')->group(function () {
+    Route::post('result','TestController@saveResults');
+    Route::post('like/add','LikeController@likeAdd');
+    Route::post('like/delete','LikeController@likeDelete');
+});
+
+Route::prefix('login')->namespace('Auth')->group(function () {
     Route::get('{provider}', 'SocialController@oauthRedirect')
          ->name('auth.social');
     Route::get('{provider}/callback', 'SocialController@login')
          ->name('auth.social.callback');
-});*/
+});
 

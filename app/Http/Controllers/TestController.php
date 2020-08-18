@@ -3,43 +3,77 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Test;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Attempt;
 
 class TestController extends Controller {
+    public $answers;
+
     public function index() {
-        return view('welcome');
+        $categories = Category::with('tests')->get();
+        return view('welcome', ['categories' => $categories]);
     }
 
     public function add(Request $request) {
         if ($request->isMethod('get')) {
-            $categories=Category::all();
-            return view('tests.add',['categories'=>$categories]);
+            $categories = Category::all();
+            return view('tests.add', ['categories' => $categories]);
         } elseif ($request->isMethod('post')) {
-            $test=Test::create([
-                'user_id'=>Auth::id(),
-                'category_id'=>$request->category,
-                'title'=>$request->title,
+            Test::create([
+                'user_id' => Auth::id(),
+                'category_id' => $request->category,
+                'title' => $request->title,
             ]);
             return redirect('/');
         }
-
     }
 
-    public function delete($id) {
-        $test=Test::find($id);
-        if($test) $test->delete();
+    public function saveResults(Request $request) {
+        $this->answers = $request->input('answers');
+        $validator=$this->validateAnswers();
+        if($validator!==true) return $validator;
+
+        $testId = $request->input('test_id');
+        $correctAnswers = Answer::whereIn('id', $this->answers)->where('is_correct', 1)->count();
+        $attempt = Attempt::create([
+            'user_id' => Auth::id(),
+            'test_id' => $testId,
+            'questions_number' => count($this->answers),
+            'questions_success' => $correctAnswers
+        ]);
+
+        foreach ($this->answers as &$answer) {
+            $answer = [
+                'attempt_id' => $attempt->id,
+                'answer_id' => $answer
+            ];
+        }
+        $attempt->answers()->createMany($this->answers);
+        return response($correctAnswers,200);
     }
 
-    public function popular() {
-        $categories = Category::all();
-        return view('welcome',['categories'=>$categories]);
-    }
+    protected function validateAnswers() {
+        $answers = Answer::with('question')->whereIn('id', $this->answers)->get();
+        //кол-во ответов равно кол-ву вопросов
+        if($answers->count()==count($this->answers)) {
+            $questions = $answers->map(function ($item) {
+                return $item->question_id;
+            });
+            if ($questions != $questions->unique()->values()) {
+                return response('The number of questions does not correspond to the number of answers.', 422);
+            }
+            //принадлежат ли вопросы 1 тесту
+            $test = $answers->map(function ($item) {
+                return $item->question->test_id;
+            });
+            if ($test->unique()->count() !== 1) {
+                return response('Questions belong to different tests.', 422);
+            }
+        } else return response(null,404);
 
-    public function like(Request $request) {
-        $test=Test::where('id', $request->input('id'));
-        $test->increment('like_counter');
-        return $test->first()->like_counter;
+        return true;
     }
 }

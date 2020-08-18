@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Question;
+use App\Models\Test;
 
 class QuestionController extends Controller
 {
     public function index($testId) {
-        return Question::test($testId)->with('answers')->get();
+        $test=Test::with('questions')->find($testId);
+        return view('tests.questions',['test'=>$test]);
     }
 }

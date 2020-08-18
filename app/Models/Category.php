@@ -9,6 +9,7 @@ class Category extends Model
     public $timestamps = false;
 
     public function tests() {
-        return $this->hasMany('App\Models\Test');
+        return $this->hasMany('App\Models\Test')
+                    ->withCount('likes')->orderBy('likes_count','desc');
     }
 }
