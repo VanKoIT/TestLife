@@ -52,7 +52,9 @@ class TestController extends Controller {
             ];
         }
         $attempt->answers()->createMany($this->answers);
-        return response($correctAnswers,200);
+
+        $response=['correct'=>$correctAnswers];
+        return response($response,200);
     }
 
     protected function validateAnswers() {
@@ -63,14 +65,14 @@ class TestController extends Controller {
                 return $item->question_id;
             });
             if ($questions != $questions->unique()->values()) {
-                return response('The number of questions does not correspond to the number of answers.', 422);
+                return abort(422,'The number of questions does not correspond to the number of answers.');
             }
             //принадлежат ли вопросы 1 тесту
             $test = $answers->map(function ($item) {
                 return $item->question->test_id;
             });
             if ($test->unique()->count() !== 1) {
-                return response('Questions belong to different tests.', 422);
+                return abort(422,'Questions belong to different tests.');
             }
         } else return response(null,404);
 

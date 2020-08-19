@@ -25,11 +25,13 @@ class SeederService {
         return Question::where('text', $question)->first('id')->id;
     }
 
-    public function insertTest($title, $category) {
+    public function insertTest($title, $category,$img=null,$description=null) {
         return [
             'user_id' => $this->getRandomUserId(),
             'category_id' => $this->getCategoryId($category),
-            'title' => $title
+            'title' => $title,
+            'description'=>$description,
+            'photo_link' => $img
         ];
     }
 

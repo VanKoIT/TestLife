@@ -12,7 +12,7 @@ class LikeController extends Controller
 
     public function likeAdd(Request $request) {
         if ($this->getLike($request)) {
-            return response(null, 422);
+            return abort(422,'User has already liked this test');
         } else {
             Like::create([
                 'user_id' => Auth::id(),
@@ -26,7 +26,7 @@ class LikeController extends Controller
         if ($like=$this->getLike($request)) {
             $like->delete();
             return response(null, 204);
-        } else return response(null, 422);
+        } else return abort(422,'User did not like this test');
     }
 
     protected function getLike($request) {

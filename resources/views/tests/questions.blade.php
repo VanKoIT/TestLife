@@ -1,11 +1,3 @@
-{{--@foreach($questions as $question)--}}
-{{--    <h2>{{$question->text}}</h2>--}}
-{{--    <ul>--}}
-{{--    @foreach($question->answers as $answer)--}}
-{{--        <li>{{$answer->text}}</li>--}}
-{{--    @endforeach--}}
-{{--    </ul>--}}
-{{--@endforeach--}}
 @extends('layouts.app')
 
 @section('styles')
@@ -77,7 +69,7 @@
                     <button class="test-content__like" type="button">
                         <span class="visually-hidden">In my heart</span>
                     </button>
-                    <a href="#" class="test-content__close"></a>
+                    <a href="/" class="test-content__close"></a>
                 </div>
                 <button class="swiper-button-next hidden"></button>
                 <button class="swiper-button-prev hidden"></button>

@@ -261,7 +261,8 @@ h6 {
     max-width: 360px;
     height: 160px;
     display: block;
-    background: #c4c4c4;
+    background: url('../images/Test.png') no-repeat center;
+    background-size: cover;
 }
 .test-preview__content {
     display: flex;

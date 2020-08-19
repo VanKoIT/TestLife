@@ -34,15 +34,16 @@
         @auth
             <a href="{{route('home')}}" class="header__user"></a>
         @else
-            <button class="header__user" type="button">
+            <a href="{{route('login')}}" class="header__user">
                 <span class="hidden">Вход пользователя</span>
-            </button>
+            </a>
         @endauth
     </div>
 </header>
 @yield('content')
 
 <script src="{{ asset('js/swiper.js') }}"></script>
+<script src="{{ asset('js/before.js') }}"></script>
 @yield('scripts')
 
 </body>
