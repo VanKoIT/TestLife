@@ -1,36 +1,44 @@
-const regBtn = document.querySelector('.header__user');
-regBtn.addEventListener('click', function(evt) {
-    evt.preventDefault();
-    body.classList.add('no-scroll');
-    modal.classList.add('show');
-
-    let stopProp = function(evt) {
-        evt.stopPropagation();
-    }
-
-    let closeModal = function(evt) {
-        evt.preventDefault();
-        body.classList.remove('no-scroll');
-        modal.classList.remove('show');
-        modal.removeEventListener('click', closeModal);
-        modalForm.removeEventListener('click', stopProp)
-    }
-
-    modal.addEventListener('click', closeModal)
-    modalForm.addEventListener('click', stopProp)
-})
+let emailExist = false;
+let passwordValid = false;
 
 const accountNameInput = document.querySelector('.registration__input_name');
 const accountMailInput = document.querySelector('.registration__input_email');
 const accountPassInput = document.querySelector('.registration__input_pass');
 const accountPassRepeatInput = document.querySelector('.registration__input_pass-repeat');
 
+let fetchMail = function(elem, message) {
+    let data = {};
+    data = elem.value;
+    let submit= document.querySelector('.registration__submit');
+
+    let response = fetch('email/exist', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        mode: 'cors',
+        body: JSON.stringify(
+            {'email': data})
+    })
+        .then(response => {
+            emailExist = response.status === 422;
+            if(emailExist) {
+                message.classList.remove('hidden');
+                submit.disabled = true;
+            } else {
+                message.classList.add('hidden');
+                if(passwordValid)submit.disabled = false;
+            }
+        })
+}
+
 accountNameInput.addEventListener('change', function() {
     if (accountNameInput.value !== '') {
         accountNameInput.classList.add('filled');
     } else {
         accountNameInput.classList.remove('filled');
-    };
+    }
 });
 
 accountMailInput.addEventListener('change', function() {
@@ -38,7 +46,7 @@ accountMailInput.addEventListener('change', function() {
         accountMailInput.classList.add('filled');
     } else {
         accountMailInput.classList.remove('filled');
-    };
+    }
 });
 
 accountPassInput.addEventListener('change', function() {
@@ -47,7 +55,7 @@ accountPassInput.addEventListener('change', function() {
         validatePasswords(accountPassInput);
     } else {
         accountPassInput.classList.remove('filled');
-    };
+    }
 });
 
 accountPassRepeatInput.addEventListener('change', function() {
@@ -56,5 +64,22 @@ accountPassRepeatInput.addEventListener('change', function() {
         validatePasswords(accountPassRepeatInput);
     } else {
         accountPassRepeatInput.classList.remove('filled');
-    };
+    }
 });
+
+const forms = document.querySelectorAll('form');
+
+forms.forEach(function(form) {
+    let input = form.querySelector('input[type = email]');
+    let msg = form.querySelector('.registration__error-msg.email');
+
+    input.addEventListener('change', (evt) => {
+        evt.preventDefault();
+        fetchMail(input, msg);
+    });
+});
+
+let regForm = document.querySelector('.registration');
+
+regForm.addEventListener('submit', (evt) => sendRequest(evt, regForm));
+

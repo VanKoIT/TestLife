@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Attempt;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $decidedCounter=Attempt::where('user_id',Auth::id())
+                               ->distinct()->count('test_id');
+        return view('home',['decidedCounter'=>$decidedCounter]);
     }
 }

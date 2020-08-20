@@ -33,10 +33,10 @@ class TestController extends Controller {
 
     public function saveResults(Request $request) {
         $this->answers = $request->input('answers');
-        $validator=$this->validateAnswers();
+        $testId = $request->input('test_id');
+        $validator=$this->validateAnswers($testId);
         if($validator!==true) return $validator;
 
-        $testId = $request->input('test_id');
         $correctAnswers = Answer::whereIn('id', $this->answers)->where('is_correct', 1)->count();
         $attempt = Attempt::create([
             'user_id' => Auth::id(),
@@ -57,22 +57,28 @@ class TestController extends Controller {
         return response($response,200);
     }
 
-    protected function validateAnswers() {
+    protected function validateAnswers($testId) {
         $answers = Answer::with('question')->whereIn('id', $this->answers)->get();
-        //кол-во ответов равно кол-ву вопросов
+        //кол-во ответов равно кол-ву отправленных
         if($answers->count()==count($this->answers)) {
             $questions = $answers->map(function ($item) {
                 return $item->question_id;
             });
+            $test = $answers->map(function ($item) {
+                return $item->question->test_id;
+            });
+
+            //кол-во ответов равно кол-ву вопросов
             if ($questions != $questions->unique()->values()) {
                 return abort(422,'The number of questions does not correspond to the number of answers.');
             }
             //принадлежат ли вопросы 1 тесту
-            $test = $answers->map(function ($item) {
-                return $item->question->test_id;
-            });
-            if ($test->unique()->count() !== 1) {
+            else if ($test->unique()->count() !== 1) {
                 return abort(422,'Questions belong to different tests.');
+            }
+            //принадлежат ли вопросы тесту, id которого отправлен
+            else if ($test[0]===$testId) {
+                return abort(422,'Questions do not belong to this test.');
             }
         } else return response(null,404);
 

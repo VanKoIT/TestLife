@@ -6,14 +6,16 @@ loginMailInput.addEventListener('change', function() {
         loginMailInput.classList.add('filled');
     } else {
         loginMailInput.classList.remove('filled');
-    };
+    }
 });
 
 loginPassInput.addEventListener('change', function() {
     if (loginPassInput.value !== '') {
         loginPassInput.classList.add('filled');
-        validatePasswords(loginPassInput);
     } else {
         loginPassInput.classList.remove('filled');
-    };
+    }
 });
+
+let autForm = document.querySelector('.authorization');
+autForm.addEventListener('submit', (evt) => sendRequest(evt, autForm,true));

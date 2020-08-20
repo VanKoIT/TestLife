@@ -25,11 +25,7 @@
             <a class="header__main-page-link" href="/">test life</a>
         </div>
         <div class="center">
-            <nav class="nav">
-                <a href="#" class="nav__link">Создать свой тест</a>
-                <a href="#" class="nav__link">Найти тест</a>
-                <a href="#" class="nav__link">Мини-игры</a>
-            </nav>
+            @yield('nav')
         </div>
         @auth
             <a href="{{route('home')}}" class="header__user"></a>

@@ -1,25 +1,22 @@
 @extends('layouts.app')
 
-@section('content')
-@auth
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Личный кабинет</div>
+@section('styles')
+    <link href="{{ asset('css/welcome.css')}}" rel="stylesheet">
+@endsection
 
-                    <div class="card-body">
-                        {{Auth::user()->name}}
-                    </div>
-                    @auth
-                        <form action="{{route('logout')}}" method="post">
-                            @csrf
-                            <button>выйти</button>
-                        </form>
-                    @endauth
-                </div>
-            </div>
-        </div>
-    </div>
-@endauth
+@section('nav')
+    <nav class="nav show">
+        <a href="#" class="nav__link">Мои тесты</a>
+        <a href="#" class="nav__link">Избранные</a>
+    </nav>
+@endsection
+
+@section('content')
+    <h2>Личный кабинет</h2>
+    <h1>Пользователь: {{Auth::user()->name}}</h1>
+    <h3>Решено вами тестов: {{$decidedCounter}}</h3>
+
+    <form action="{{route('logout')}}" method="post">
+        <button>Выйти</button>
+    </form>
 @endsection

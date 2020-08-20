@@ -17,10 +17,10 @@
                 <input name="password" class="authorization__input authorization__input_pass" id="aut-email"
                        type="password" required>
                 <label class="authorization__label email-label" for="aut-email">Пароль</label>
-                <div class="authorization__error-msg hidden">Ошибка: Пароли не совпадают</div>
+                <div class="authorization__error-msg hidden">Неверный логин или пароль</div>
                 <button class="authorization__submit" type="submit">Авторизация</button>
                 <a href="{{route('register')}}"><button class="authorization__account" type="button">Регистрация</button></a>
-                <a class="authorization__link" href="#"></a>
+                <a class="registration__link" href="#"></a>
             </form>
         </div>
         <a href="/" class="modal__close"></a>

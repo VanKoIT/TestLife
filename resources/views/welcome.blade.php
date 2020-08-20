@@ -7,6 +7,13 @@
     <script src="{{ asset('js/welcome.js') }}"></script>
 @endsection
 
+@section('nav')
+    <nav class="nav">
+        <a href="#" class="nav__link">Создать свой тест</a>
+        <a href="#" class="nav__link">Найти тест</a>
+        <a href="#" class="nav__link">Мини-игры</a>
+    </nav>
+@endsection
 @section('content')
     <div class="minor-pages">
         <div class="center">
@@ -57,11 +64,12 @@
     <footer class="footer">
         <div class="center">
             <div class="footer__inner">
+                <div class="footer__text">&#169; test life, 2020</div>
+                <div class="footer__text">создание и прохождение тестов</div>
                 <div class="footer__content">
-                    <div class="footer__column">бла-бла-бла инфа</div>
-                    <div class="footer__column">бла-бла-бла инфа</div>
+                    <a class="footer__column" href="#">О нас</a>
+                    <a class="footer__column" href="#">О сервисе</a>
                 </div>
-                <div class="footer__text">бла-бла-бла инфа бла-бла-бла инфа бла-бла-бла инфа</div>
             </div>
         </div>
     </footer>
