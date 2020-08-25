@@ -41,6 +41,8 @@ let findActiveQuest = function() {
     }
 }
 findActiveQuest();
+nextQuestBtn.addEventListener('click', findActiveQuest);
+prevQuestBtn.addEventListener('click', findActiveQuest);s
 // Show resultTestBtn
 
 let foundCheckedAnswers = function() {

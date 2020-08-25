@@ -5,12 +5,12 @@
 @endsection
 
 @section('content')
-    <section class="development">
+    <main class="development">
         <div class="content">
-            <h1 class="development__title">в разработке</h1>
+            <p class="development__title">в разработке</p>
             <a href="{{URL::previous()}}" class="development__close">
                 <span class="visually-hidden">Close</span>
             </a>
         </div>
-    </section>
+    </main>
 @endsection

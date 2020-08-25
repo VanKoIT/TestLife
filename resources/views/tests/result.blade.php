@@ -35,15 +35,12 @@
                                 @foreach($attemptAnswer->question->answers as $answer)
                                     <p>
                                         <label>
-                                            <input name="answer-{{$attemptAnswer->question->id}}" type="radio" disabled
-                                                   class="questions-list__answer" data-answer="{{$answer->id}}">
-                                            <span class="questions-list__text"
-                                                  @if(($answer->is_correct))
-                                                  style="color:green"
-                                                  @elseif(!$answer->is_correct
-&& $attemptAnswer->id==$answer->id)
-                                                  style="color:red"
-                                                  @endif>
+                                            <input name="answer-{{$attemptAnswer->question->id}}" type="radio" disabled data-answer="{{$answer->id}}" class="questions-list__answer
+                                            @if(($answer->is_correct)) correct
+                                            @elseif(!$answer->is_correct
+&& $attemptAnswer->id==$answer->id) incorrect @endif
+                                            @if($attemptAnswer->id==$answer->id) checked                                                 @endif" >
+                                            <span class="questions-list__text">
                                                 {{$answer->text}}
                                             </span>
                                         </label>
