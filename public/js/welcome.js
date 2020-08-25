@@ -114,4 +114,18 @@ likes.forEach(function(elem) {
     })
 })
 
+// Footer info
+
+let footerInfoAbout = document.querySelector('.footer__info-about');
+let footerInfoService = document.querySelector('.footer__info-service');
+let footerAbout = document.querySelector('.footer__about');
+let footerService = document.querySelector('.footer__service');
+
+footerAbout.addEventListener('click', () => {
+    footerInfoAbout.classList.toggle('hidden');
+});
+
+footerService.addEventListener('click', () => {
+    footerInfoService.classList.toggle('hidden');
+});
 

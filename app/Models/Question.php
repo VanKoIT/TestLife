@@ -9,6 +9,10 @@ class Question extends Model
     public $timestamps = false;
 
     public function answers() {
-        return $this->hasMany('App\Models\Answer')->select(['id','question_id','text']);
+        return $this->hasMany('App\Models\Answer');
+    }
+
+    public function answersRandom() {
+        return $this->answers()->inRandomOrder();
     }
 }

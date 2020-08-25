@@ -19,28 +19,29 @@
     @yield('styles')
 </head>
 <body>
-<header class="header">
-    <div class="container">
-        <div class="header__logo">
-            <a class="header__main-page-link" href="/">test life</a>
+<div class="view">
+    <header class="header">
+        <div class="container">
+            <div class="header__logo">
+                <a class="header__main-page-link" href="/">test life</a>
+            </div>
+            <div class="center">
+                @yield('nav')
+            </div>
+            @auth
+                <a href="{{route('home')}}" class="header__user"></a>
+            @else
+                <a href="{{route('login')}}" class="header__user">
+                    <span class="hidden">Вход пользователя</span>
+                </a>
+            @endauth
         </div>
-        <div class="center">
-            @yield('nav')
-        </div>
-        @auth
-            <a href="{{route('home')}}" class="header__user"></a>
-        @else
-            <a href="{{route('login')}}" class="header__user">
-                <span class="hidden">Вход пользователя</span>
-            </a>
-        @endauth
-    </div>
-</header>
-@yield('content')
+    </header>
+    @yield('content')
 
-<script src="{{ asset('js/swiper.js') }}"></script>
-<script src="{{ asset('js/before.js') }}"></script>
-@yield('scripts')
-
+    <script src="{{ asset('js/swiper.js') }}"></script>
+    <script src="{{ asset('js/before.js') }}"></script>
+    @yield('scripts')
+</div>
 </body>
 </html>

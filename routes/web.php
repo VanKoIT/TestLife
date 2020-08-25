@@ -16,16 +16,22 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'TestController@index');
+Route::get('dev', function () {
+    return view('development');
+});
+
 Route::get('home', 'HomeController@index')->name('home');
 Route::post('email/exist','CheckController@emailExist');
 
 Route::middleware('auth')->group(function () {
     Route::get('test/{testId}','QuestionController@index')->name('testQuestions');
+    Route::get('result/{attemptId}','ResultController@displayAttempt')
+        ->middleware('attempt.user');;
 
     Route::post('auth/check','CheckController@auth');
-    Route::post('result','TestController@saveResults');
     Route::post('like/add','LikeController@likeAdd');
     Route::post('like/delete','LikeController@likeDelete');
+    Route::post('result','ResultController@saveResults');
 });
 
 /*Route::prefix('login')->namespace('Auth')->group(function () {

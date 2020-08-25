@@ -17,6 +17,10 @@ class Test extends Model
         return $this->hasMany('App\Models\Question');
     }
 
+    public function questionsRandom() {
+        return $this->questions()->inRandomOrder();
+    }
+
     public function likes() {
         return $this->hasMany('App\Models\Like');
     }

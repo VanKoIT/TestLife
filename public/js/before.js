@@ -63,17 +63,4 @@ let sendRequest = function (e, form, isLogin) {
                 }
             }
         })
-    /*.catch(error => {
-        form.classList.add('hidden');
-        let msgBlock = form.querySelector('.modal__error');
-        msgBlock.classList.remove('hidden');
-        let msg = form.querySelector('.modal__message');
-        msg.textContent = error.message;
-        let closeBtn = form.querySelector('.modal__error-close');
-        closeBtn.addEventListener('click', function(evt) {
-            evt.preventDefault();
-            msgBlock.classList.add('hidden');
-            form.classList.remove('hidden');
-        })
-    });*/
 }

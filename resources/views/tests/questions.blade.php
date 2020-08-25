@@ -12,10 +12,6 @@
         <div class="test__header">
             <div class="container">
                 <h1 class="test__name">{{$test->title}}</h1>
-                <div class="test__control-btns">
-                    <button type="button" class="test__continue">Продолжить</button>
-                    <button type="button" class="test__start">Начать заново</button>
-                </div>
                 <div class="test__counter-questions hidden">
                     Вопрос
                     <span class="test__actual-question">3</span>
@@ -27,11 +23,9 @@
         <div class="test-content">
             <div class="container swiper-container">
                 <div class="test-content__info">
-                    @isset($test->description)
-                    <p class="test-content__text">{{$test->description}}</p>
-                    @else
-                        <p class="test-content__text">Нет информации о тесте</p>
-                    @endisset
+                    <p class="test-content__text">
+                        {{$test->description}}
+                    </p>
                     <p class="test-content__author">
                         <cite>Автор теста: {{$test->author->name}}</cite>
                     </p>
@@ -40,40 +34,41 @@
                     </button>
                 </div>
 
-                <ul class="questions-list swiper-wrapper hidden">
-                    @foreach($test->questions as $question)
-                        <li class="questions-list__item swiper-slide">
-                            <form class="question" action="#">
-                                <h3>{{$question->text}}</h3>
-                                @foreach($question->answers as $answer)
+                <form name="testAnswers" id="test" method="POST"
+                      class="questions-list swiper-wrapper hidden">
+                    @foreach($test->questionsRandom as $question)
+                        <div class="questions-list__item swiper-slide">
+                            <fieldset form="test" class="question">
+                                <h2>{{$question->text}}</h2>
+                                @foreach($question->answersRandom as $answer)
                                     <p>
-                                        <input name="answer1" id="1" data-id="{{$answer->id}}" type="radio" class="questions-list__answer">
-                                        <label for="1">{{$answer->text}}</label>
+                                        <label>
+                                            <input name="answer-{{$question->id}}" type="radio"
+                                                   class="questions-list__answer" data-answer="{{$answer->id}}">
+                                            <span class="questions-list__text">{{$answer->text}}</span>
+                                        </label>
                                     </p>
                                 @endforeach
-                            </form>
-                        </li>
+                            </fieldset>
+                        </div>
                     @endforeach
-                </ul>
+                </form>
+                <button class="test-content__forms-submit-btn hidden" type="submit" form="test">Результат</button>
 
                 <div class="test-content__result hidden">
                     <p class="test-content__result-text">
-                        Поздравляем, вы прошли тест!!! Здесь мог бы быть ваш результат, удачи!
+                        Отправка ответов...
                     </p>
                     <p class="test-content__author">
-                        <cite>Автор теста: GG Team</cite>
+                        <a href="" class="minor-pages__link detail-link">Подробнее</a>
                     </p>
                 </div>
 
-                <div class="test-content__icons">
-                    <button class="test-content__like" type="button">
-                        <span class="visually-hidden">In my heart</span>
-                    </button>
-                    <a href="/" class="test-content__close"></a>
-                </div>
-                <button class="swiper-button-next hidden"></button>
-                <button class="swiper-button-prev hidden"></button>
-                <button class="test-content__forms-submit-btn hidden">Результат</button>
+                <a href="{{$previousURI}}" class="test-content__close" type="button">
+                    <span class="visually-hidden">Close</span>
+                </a>
+                <button class="swiper-button-next hidden" type="button">Next</button>
+                <button class="swiper-button-prev hidden" type="button">Prev</button>
             </div>
         </div>
     </section>

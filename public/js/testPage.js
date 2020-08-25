@@ -1,45 +1,92 @@
-// Fetch 
+const testForm = document.querySelector('.questions-list');
+const fieldsets = document.querySelectorAll('.question');
+const answers = document.querySelectorAll('.questions-list__answer');
+const resultTestBtn = document.querySelector('.test-content__forms-submit-btn');
+const tesultText = document.querySelector('.test-content__result-text');
+const detailLink = document.querySelector('.detail-link');
+// Fetch
 
-// const requestURL = '';
+// Отправка решенного теста для получения результата
+let sendTest = function(form) {
+    let URL = '/result';
+    let answers = [];
 
-// function sendRequest(method, url, body = null) {
-//     const headers = {
-//         'Content-Type': "application/json"
-//     }
+    fieldsets.forEach((fieldset) => {
+        let answerName = fieldset.querySelector('input[type=radio]:checked').dataset.answer;
+        answers.push(answerName);
+    })
 
-//     return fetch(url, {
-//         method: method,
-//         body: JSON.stringify(body),
-//         headers: headers
-//     }).then(response => {
-//         if (response.ok) {
-//             return response.json()
-//         }
-//         return response.json().then(error => {
-//             const e = new Error('Fatal error')
-//             e.data = error
-//             throw e
-//         })
-//     })
-// }
+    let requestBody = JSON.stringify({
+        answers
+    });
+    let errorText = `К сожалению, отправить ответы не удалось`;
+    fetch(URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body:requestBody
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                tesultText.textContent = errorText;
+            }
+        })
+        .then(data=> {
+            tesultText.textContent = `Поздравляем, вы ответили правильно на ${data.correct} вопросов из ${answers.length}.`;
+            detailLink.href=data.detail_link;
+        })
+        .catch(error => {
+            tesultText.textContent = errorText;
+        })
+}
 
-// sendRequest('GET', requestURL)
-//     .then(data => console.log(data))
-//     .catch(err => console.error(err))
+testForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    sendTest(testForm)
+});
 
-// const body = {
-//     name: 'Ryslan',
-//     age: 28
-// }
+// По кнопке "продолжить" пользователю должен вылазить вопрос на котором остановился
+// const continueBtn = document.querySelector('.test__continue');
+// По кнопке "начать заново", тест должен обнулиться и начаться заново
+// const startBtn = document.querySelector('.test__start');
 
-// sendRequest('POST', requestURL, body)
-//     .then(data => console.log(data))
-//     .catch(err => console.error(err))
+// Должно перейти на предыдущую страницу
+let userPage = document.querySelector('.header__user');
+
+let getResponse = function(URL) {
+
+    let response = fetch(URL, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify()
+    })
+        .then(response => {
+            if (response.ok) {
+                response.json()
+            }
+        })
+        .catch(error => console.log(error))
+}
+
+/*closeTestBtn.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    getResponse('someURL')
+});*/
+
+// userPage.addEventListener('click', (evt) => {
+//     evt.preventDefault();
+//     getResponse('someURL')
+// });
 
 // Swiper
 
 let mySwiper = new Swiper('.swiper-container', {
-    
+
     speed: 400,
     spaceBetween: 0,
     slidesPerView: 1,
@@ -48,20 +95,11 @@ let mySwiper = new Swiper('.swiper-container', {
     navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
-        },
+    },
 })
-
-// Like press
-const like = document.querySelector('.test-content__like');
-
-like.addEventListener('click', function() {
-    like.classList.toggle('pressed');
-});
 
 // Test begin
 
-const continueBtn = document.querySelector('.test__continue');
-const startBtn = document.querySelector('.test__start');
 const beginBtn = document.querySelector('.test-content__begin');
 const controlBtns = document.querySelector('.test__control-btns');
 const counterQuestions = document.querySelector('.test__counter-questions');
@@ -80,21 +118,19 @@ let findActiveQuest = function() {
         if (questList[i].classList.contains('swiper-slide-active')) {
             actualQuest.textContent = i + 1;
         }
-        // почему то если сюда добавить ветку else то срабатывает и основная и else
-        // else {actualQuest.textContent = totalQuest.textContent}
     }
 }
 
 let testBegin = function() {
-    controlBtns.classList.add('hidden');
+    // controlBtns.classList.add('hidden');
     infoPage.classList.add('hidden');
     questionsList.classList.remove('hidden');
     nextQuestBtn.classList.remove('hidden');
     prevQuestBtn.classList.remove('hidden');
     counterQuestions.classList.remove('hidden');
-    
-    continueBtn.removeEventListener('click', testBegin);
-    startBtn.removeEventListener('click', testBegin);
+
+    // continueBtn.removeEventListener('click', testBegin);
+    // startBtn.removeEventListener('click', testBegin);
     beginBtn.removeEventListener('click', testBegin);
 
     findActiveQuest();
@@ -102,36 +138,39 @@ let testBegin = function() {
     prevQuestBtn.addEventListener('click', findActiveQuest);
 }
 
-continueBtn.addEventListener('click', testBegin);
-startBtn.addEventListener('click', testBegin);
+// continueBtn.addEventListener('click', testBegin);
+// startBtn.addEventListener('click', testBegin);
 beginBtn.addEventListener('click', testBegin);
 
 // Show resultTestBtn
 
-const forms = document.querySelectorAll('.question');
-const answers = document.querySelectorAll('.questions-list__answer');
-const resultTestBtn = document.querySelector('.test-content__forms-submit-btn');
-
 let foundCheckedAnswers = function() {
     let checkedAnswers = document.querySelectorAll('input[type=radio]:checked');
-    
-    if (checkedAnswers.length === forms.length) {
+
+    if (checkedAnswers.length === fieldsets.length) {
         resultTestBtn.classList.remove('hidden');
     } else {
         resultTestBtn.classList.add('hidden');
-    }    
+    }
 }
 
+// When ckeck answer
+
 answers.forEach(function(elem) {
-    elem.addEventListener('change', foundCheckedAnswers)
-})
+    elem.addEventListener('change', foundCheckedAnswers);
+
+    // elem.addEventListener('change', (evt) => {
+    //     evt.preventDefault();
+    //     postResponse('http://l91287uv.beget.tech/result');
+    // });
+});
 
 // Show result of test
 
 const resultPage = document.querySelector('.test-content__result');
 
-let showResultTest = function(event) {
-    event.preventDefault();
+let showResultTest = function() {
+
     resultPage.classList.remove('hidden');
     questionsList.classList.add('hidden');
     nextQuestBtn.classList.add('hidden');
@@ -142,10 +181,12 @@ let showResultTest = function(event) {
     prevQuestBtn.removeEventListener('click', findActiveQuest);
 
     answers.forEach(function(elem) {
-        elem.removeEventListener('change', foundCheckedAnswers)
+        elem.removeEventListener('change', foundCheckedAnswers);
+        // elem.removeEventListener('change', postResponse);
     })
 
     resultTestBtn.classList.add('hidden');
 }
 
 resultTestBtn.addEventListener('click', showResultTest);
+

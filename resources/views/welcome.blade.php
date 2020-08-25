@@ -9,18 +9,18 @@
 
 @section('nav')
     <nav class="nav">
-        <a href="#" class="nav__link">Создать свой тест</a>
-        <a href="#" class="nav__link">Найти тест</a>
-        <a href="#" class="nav__link">Мини-игры</a>
+        <a href="dev" class="nav__link">Создать свой тест</a>
+        <a href="dev" class="nav__link">Найти тест</a>
+        <a href="dev" class="nav__link">Мини-игры</a>
     </nav>
 @endsection
 @section('content')
     <div class="minor-pages">
         <div class="center">
             <nav class="minor-pages__nav">
-                <a href="" class="minor-pages__link">Создать свой тест</a>
-                <a href="" class="minor-pages__link">Найти тест</a>
-                <a href="" class="minor-pages__link">Мини-игры</a>
+                <a href="dev" class="minor-pages__link">Создать свой тест</a>
+                <a href="dev" class="minor-pages__link">Найти тест</a>
+                <a href="dev" class="minor-pages__link">Мини-игры</a>
             </nav>
         </div>
     </div>
@@ -67,8 +67,19 @@
                 <div class="footer__text">&#169; test life, 2020</div>
                 <div class="footer__text">создание и прохождение тестов</div>
                 <div class="footer__content">
-                    <a class="footer__column" href="#">О нас</a>
-                    <a class="footer__column" href="#">О сервисе</a>
+                    <div class="footer__info footer__info-about hidden">
+                        Project manager: Владислав Козак<br>
+                        Designer: Данил Овчинников<br>
+                        Back-end developer: Иван Корепанов<br>
+                        Front-end developer: Руслан Ситников
+                    </div>
+                    <div class="footer__info footer__info-service hidden">
+                        Сайт для тестирования пользователей.
+                        Посетители смогут проходить тесты,
+                        созданные администратором или другими пользователями.
+                    </div>
+                    <button class="footer__about" type="button">О нас</button>
+                    <button class="footer__service" type="button">О сервисе</button>
                 </div>
             </div>
         </div>
