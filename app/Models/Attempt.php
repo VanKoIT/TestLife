@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class Attempt extends Model
@@ -12,12 +14,28 @@ class Attempt extends Model
     const CREATED_AT = 'passed_at';
     const UPDATED_AT = null;
 
-    public function test() {
+    public function test()
+    {
         return $this->belongsTo('App\Models\Test');
     }
 
-    public function answers() {
-        return $this->belongsToMany('App\Models\Answer','user_answers');
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
     }
 
+    public function answers()
+    {
+        return $this->belongsToMany('App\Models\Answer', 'user_answers');
+    }
+
+    public function getDiffPassedAtAttribute()
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['passed_at'])->diffForHumans([
+            'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
+            'options' => CarbonInterface::JUST_NOW | Carbon::ONE_DAY_WORDS,
+        ]);
+    }
+
+    protected $appends = ['diff_passed_at'];
 }

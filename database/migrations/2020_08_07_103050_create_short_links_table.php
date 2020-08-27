@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateShortLinksTable extends Migration
 {
+    const TABLE = 'short_links';
+
     /**
      * Run the migrations.
      *
@@ -13,7 +15,7 @@ class CreateShortLinksTable extends Migration
      */
     public function up()
     {
-        Schema::create('short_links', function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()
                   ->onDelete('cascade');
@@ -30,6 +32,6 @@ class CreateShortLinksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('short_links');
+        Schema::dropIfExists(self::TABLE);
     }
 }

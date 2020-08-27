@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateUserAnswersTable extends Migration
 {
+    const TABLE = 'user_answers';
+
     /**
      * Run the migrations.
      *
@@ -13,7 +15,7 @@ class CreateUserAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_answers', function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->id();
             $table->foreignId('attempt_id')->constrained()
                   ->onDelete('cascade');
@@ -29,6 +31,6 @@ class CreateUserAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_answers');
+        Schema::dropIfExists(self::TABLE);
     }
 }

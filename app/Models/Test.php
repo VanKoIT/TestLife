@@ -4,31 +4,40 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+
 class Test extends Model
 {
-    public $guarded =['id'];
+    public $guarded = ['id'];
     public $timestamps = false;
 
-    public function author() {
-        return $this->belongsTo('App\Models\User','user_id');
+    public function author()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 
-    public function questions() {
+    public function category() {
+        return $this->belongsTo('App\Models\Category');
+    }
+
+    public function questions()
+    {
         return $this->hasMany('App\Models\Question');
     }
 
-    public function questionsRandom() {
+    public function questionsRandom()
+    {
         return $this->questions()->inRandomOrder();
     }
 
-    public function likes() {
+    public function likes()
+    {
         return $this->hasMany('App\Models\Like');
     }
 
-    public function is_like() {
-        if(Auth::check()) {
-            $isLike = $this->hasMany('App\Models\Like')
-                        ->where('user_id',Auth::id())->count();
+    public function is_like()
+    {
+        if (Auth::check()) {
+            $isLike = $this->hasMany('App\Models\Like')->where('user_id', Auth::id())->count();
             return $isLike;
         }
         return 0;

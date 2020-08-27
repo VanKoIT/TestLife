@@ -7,14 +7,26 @@ use App\Models\Test;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class TestController extends Controller {
 
-    public function index() {
+/**
+ * Class TestController
+ * @package App\Http\Controllers
+ */
+class TestController extends Controller
+{
+
+    /**
+     * Show tests list sorting by categories
+     * @return mixed
+     */
+    public function index()
+    {
         $categories = Category::with('tests')->get();
         return view('welcome', ['categories' => $categories]);
     }
 
-    public function add(Request $request) {
+    public function add(Request $request)
+    {
         if ($request->isMethod('get')) {
             $categories = Category::all();
             return view('tests.add', ['categories' => $categories]);

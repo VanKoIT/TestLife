@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSocialAccountsTable extends Migration
 {
+    const TABLE = 'social_accounts';
+
     /**
      * Run the migrations.
      *
@@ -13,7 +15,7 @@ class CreateSocialAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('social_accounts', function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()
                 ->onDelete('cascade');
@@ -29,6 +31,6 @@ class CreateSocialAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('social_accounts');
+        Schema::dropIfExists(self::TABLE);
     }
 }

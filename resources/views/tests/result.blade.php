@@ -12,9 +12,6 @@
         <div class="test__header">
             <div class="container">
                 <h1 class="test__name">{{$attempt->test->title}}</h1>
-                <h4 class="test__name test-date">
-                    {{$attemptDate}}
-                </h4>
                 <div class="test__counter-questions">
                     Вопрос
                     <span class="test__actual-question">3</span>

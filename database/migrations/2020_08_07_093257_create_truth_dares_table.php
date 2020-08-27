@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateTruthDaresTable extends Migration
 {
+    const TABLE = 'truth_dares';
+
     /**
      * Run the migrations.
      *
@@ -13,7 +15,7 @@ class CreateTruthDaresTable extends Migration
      */
     public function up()
     {
-        Schema::create('truth_dares', function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->id();
             $table->text('text');
             $table->boolean('is_truth')->default(0);
@@ -27,6 +29,6 @@ class CreateTruthDaresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('truth_dares');
+        Schema::dropIfExists(self::TABLE);
     }
 }

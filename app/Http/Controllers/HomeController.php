@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Test;
 use App\Models\Attempt;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -25,8 +27,29 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $decidedCounter=Attempt::where('user_id',Auth::id())
-                               ->distinct()->count('test_id');
-        return view('home',['decidedCounter'=>$decidedCounter]);
+        $decidedCounter = Attempt::where('user_id', Auth::id())->distinct()->count('test_id');
+        $shortHistory = Attempt::where('user_id', Auth::id())
+                               ->orderBy('passed_at','desc')
+                               ->with('test')->get();
+        $userTests = Test::where('user_id', Auth::id())->withCount('likes')->get();
+        $favoritesTests = User::find(Auth::id())->favoritesTests;
+
+        return view('home', [
+            'decidedCounter' => $decidedCounter,
+            'shortHistory' => $shortHistory,
+            'userTests' => $userTests,
+            'favoritesTests' => $favoritesTests
+        ]);
+    }
+
+    /**
+     * Show user test history.
+     * @return mixed
+     */
+    public function history($testId)
+    {
+        $history = Attempt::where('test_id', $testId)->with('user')->get();
+        $test = Test::find($testId);
+        return view('tests.history', ['history' => $history, 'test' => $test]);
     }
 }

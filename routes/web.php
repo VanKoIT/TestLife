@@ -19,18 +19,22 @@ Route::get('/', 'TestController@index');
 Route::get('dev', function () {
     return view('development');
 });
-
 Route::get('home', 'HomeController@index')->name('home');
 Route::post('email/exist','CheckController@emailExist');
 
 Route::middleware('auth')->group(function () {
-    Route::get('test/{testId}','QuestionController@index')->name('testQuestions');
-    Route::get('result/{attemptId}','ResultController@displayAttempt')
-        ->middleware('attempt.user');;
+    Route::middleware('test.guest')->group(function () {
+        Route::get('test/{testId}','QuestionController@index')
+             ->name('testQuestions');
+        Route::post('like/add','LikeController@likeAdd');
+        Route::post('like/delete','LikeController@likeDelete');
+    });
 
+    Route::get('history/{testId}','HomeController@history')
+         ->name('testHistory')->middleware('test.author');
+    Route::get('result/{attemptId}','ResultController@displayAttempt')
+        ->middleware('attempt.user')->name('testResult');
     Route::post('auth/check','CheckController@auth');
-    Route::post('like/add','LikeController@likeAdd');
-    Route::post('like/delete','LikeController@likeDelete');
     Route::post('result','ResultController@saveResults');
 });
 

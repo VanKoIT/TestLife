@@ -42,7 +42,7 @@ let findActiveQuest = function() {
 }
 findActiveQuest();
 nextQuestBtn.addEventListener('click', findActiveQuest);
-prevQuestBtn.addEventListener('click', findActiveQuest);s
+prevQuestBtn.addEventListener('click', findActiveQuest);
 // Show resultTestBtn
 
 let foundCheckedAnswers = function() {

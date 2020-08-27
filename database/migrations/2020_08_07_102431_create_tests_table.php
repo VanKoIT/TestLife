@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateTestsTable extends Migration
 {
+    const TABLE = 'tests';
+
     /**
      * Run the migrations.
      *
@@ -13,7 +15,7 @@ class CreateTestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tests', function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()
                   ->onDelete('cascade');
@@ -35,6 +37,6 @@ class CreateTestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tests');
+        Schema::dropIfExists(self::TABLE);
     }
 }
