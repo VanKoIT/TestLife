@@ -22,12 +22,4 @@ class CheckController extends Controller
         ]);
     }
 
-    /**
-     * Check user authentication.
-     * @return bool
-     */
-    public function auth()
-    {
-        return true;
-    }
 }

@@ -24,9 +24,7 @@ class CreateTestsTable extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('photo_link')->nullable();
-            $table->boolean('is_template')->default(0);
             $table->boolean('is_complete')->default(0);
-            $table->boolean('is_private')->default(0);
         });
     }
 

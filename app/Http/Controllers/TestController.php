@@ -31,12 +31,23 @@ class TestController extends Controller
             $categories = Category::all();
             return view('tests.add', ['categories' => $categories]);
         } elseif ($request->isMethod('post')) {
-            Test::create([
+            $request->validate([
+                'category' => 'required',
+                'title' => 'required|max:255',
+                'description' => 'required',
+                'image' => 'image'
+            ]);
+            $path=$request->file('image')->store('images','public');
+
+            $test=Test::create([
                 'user_id' => Auth::id(),
                 'category_id' => $request->category,
                 'title' => $request->title,
+                'description' => $request->description,
+                'photo_link' => $path
             ]);
-            return redirect('/');
+            $response= ['id'=>$test->id];
+            return response($response,200);
         }
     }
 }

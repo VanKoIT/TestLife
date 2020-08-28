@@ -30,7 +30,6 @@
                 <a href="{{route('login')}}">
                     <button class="registration__login" type="button">Авторизация</button>
                 </a>
-                <a class="registration__link" href="#"></a>
             </form>
         </div>
         <a href="/" class="modal__close"></a>

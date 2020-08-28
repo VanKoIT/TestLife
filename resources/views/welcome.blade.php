@@ -38,7 +38,8 @@
                                     @foreach($category->tests as $test)
                                         <li data-test_id="{{$test->id}}" class="test-preview swiper-slide">
                                             <a class="test-preview__logo"
-                                               @isset($test->photo_link)                                              style="background-image: url('{{asset('images/'.$test->photo_link)}}')"
+                                               @isset($test->photo_link)
+                                               style="background-image: url('{{asset($test->photo_link)}}')"
                                                @endisset
                                                href="{{route('testQuestions',$test->id)}}"></a>
                                             <div class="test-preview__content">

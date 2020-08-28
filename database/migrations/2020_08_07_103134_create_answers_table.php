@@ -20,7 +20,6 @@ class CreateAnswersTable extends Migration
             $table->foreignId('question_id')->constrained()
                 ->onDelete('cascade');
             $table->text('text');
-            $table->string('photo_link')->nullable();
             $table->boolean('is_correct')->default(0);
         });
     }

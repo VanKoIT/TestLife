@@ -20,7 +20,6 @@
                 <div class="authorization__error-msg hidden">Неверный логин или пароль</div>
                 <button class="authorization__submit" type="submit">Авторизация</button>
                 <a href="{{route('register')}}"><button class="authorization__account" type="button">Регистрация</button></a>
-                <a class="registration__link" href="#"></a>
             </form>
         </div>
         <a href="/" class="modal__close"></a>

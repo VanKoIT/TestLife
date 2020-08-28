@@ -9,7 +9,7 @@
         <h2 class="history__title">Тест: {{$test->title}}</h2>
         <div class="center">
             <aside class="history-sidebar test-history">
-                <h2 class="history-sidebar__title">История</h2>
+                <h2 class="history-sidebar__title">История прохождений</h2>
                 <ul class="history-sidebar__list">
                     @forelse($history as $attempt)
                         <li class="history-sidebar__item">
@@ -27,9 +27,7 @@
                             </a>
                         </li>
                     @empty
-                        <li class="history-sidebar__item">
-                            <h3>Вы ещё не проходили тесты</h3>
-                        </li>
+                        <h3>Ваш тест ещё никто не проходил</h3>
                     @endforelse
                 </ul>
             </aside>

@@ -19,7 +19,6 @@ class CreateQuestionsTable extends Migration
             $table->id();
             $table->foreignId('test_id')->constrained()->onDelete('cascade');
             $table->text('text');
-            $table->string('photo_link')->nullable();
         });
     }
 

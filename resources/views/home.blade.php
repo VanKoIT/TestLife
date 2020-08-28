@@ -78,7 +78,7 @@
                             {{$test->category->name}}
                         </h2>
                         <a class="person-tests__logo"
-                           @isset($test->photo_link)                                              style="background-image: url('{{asset('images/'.$test->photo_link)}}')"
+                           @isset($test->photo_link)                                              style="background-image: url('{{asset($test->photo_link)}}')"
                            @endisset
                            href="{{route('testHistory',$test->id)}}"></a>
                         <div class="person-tests__content">
@@ -111,7 +111,8 @@
                         <h2 class="chosen-tests__category">
                             {{$test->category->name}}
                         </h2>
-                        <a class="chosen-tests__logo" @isset($test->photo_link)                                            style="background-image: url('{{asset('images/'.$test->photo_link)}}')"
+                        <a class="chosen-tests__logo"
+                           @isset($test->photo_link)                                            style="background-image: url('{{asset($test->photo_link)}}')"
                            @endisset
                            href="{{route('testQuestions',$test->id)}}"></a>
                         <div class="chosen-tests__content">

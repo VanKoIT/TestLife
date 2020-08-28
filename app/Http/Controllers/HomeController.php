@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Test;
 use App\Models\Attempt;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -48,7 +47,8 @@ class HomeController extends Controller
      */
     public function history($testId)
     {
-        $history = Attempt::where('test_id', $testId)->with('user')->get();
+        $history = Attempt::where('test_id', $testId)
+                          ->with('user')->get();
         $test = Test::find($testId);
         return view('tests.history', ['history' => $history, 'test' => $test]);
     }

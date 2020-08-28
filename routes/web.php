@@ -20,28 +20,22 @@ Route::get('dev', function () {
     return view('development');
 });
 Route::get('home', 'HomeController@index')->name('home');
-Route::post('email/exist','CheckController@emailExist');
+Route::post('email/exist', 'CheckController@emailExist');
 
 Route::middleware('auth')->group(function () {
     Route::middleware('test.guest')->group(function () {
-        Route::get('test/{testId}','QuestionController@index')
+        Route::get('tests/{testId}', 'QuestionController@index')
              ->name('testQuestions');
-        Route::post('like/add','LikeController@likeAdd');
-        Route::post('like/delete','LikeController@likeDelete');
+        Route::post('like/add', 'LikeController@likeAdd');
+        Route::post('like/delete', 'LikeController@likeDelete');
     });
 
-    Route::get('history/{testId}','HomeController@history')
+    /*Route::match(['get', 'post'], 'tests/add', 'TestController@add')
+         ->name('testAdd');*/
+    Route::get('history/{testId}', 'HomeController@history')
          ->name('testHistory')->middleware('test.author');
-    Route::get('result/{attemptId}','ResultController@displayAttempt')
-        ->middleware('attempt.user')->name('testResult');
-    Route::post('auth/check','CheckController@auth');
-    Route::post('result','ResultController@saveResults');
+    Route::get('result/{attemptId}', 'ResultController@displayAttempt')
+         ->middleware('attempt.user')->name('testResult');
+    Route::post('result', 'ResultController@saveResults');
 });
-
-/*Route::prefix('login')->namespace('Auth')->group(function () {
-    Route::get('{provider}', 'SocialController@oauthRedirect')
-         ->name('auth.social');
-    Route::get('{provider}/callback', 'SocialController@login')
-         ->name('auth.social.callback');
-});*/
 

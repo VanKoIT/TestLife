@@ -5,6 +5,17 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * App\Models\User
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property string|null $remember_token
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Test[] $favoritesTests
+ * @property-read int|null $favorites_tests_count
+ */
 class User extends Authenticatable
 {
     use Notifiable;

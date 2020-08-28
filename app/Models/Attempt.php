@@ -6,6 +6,21 @@ use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Attempt
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $test_id
+ * @property \Illuminate\Support\Carbon $passed_at
+ * @property int $questions_number
+ * @property int $questions_success
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Answer[] $answers
+ * @property-read int|null $answers_count
+ * @property-read mixed $diff_passed_at
+ * @property-read \App\Models\Test $test
+ * @property-read \App\Models\User $user
+ */
 class Attempt extends Model
 {
     protected $guarded = ['id'];

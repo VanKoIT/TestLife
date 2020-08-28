@@ -31,7 +31,7 @@ class SeederService {
             'category_id' => $this->getCategoryId($category),
             'title' => $title,
             'description'=>$description,
-            'photo_link' => $img
+            'photo_link' => 'images/'.$img
         ];
     }
 
