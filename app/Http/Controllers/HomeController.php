@@ -30,12 +30,14 @@ class HomeController extends Controller
         $shortHistory = Attempt::where('user_id', Auth::id())
                                ->orderBy('passed_at','desc')
                                ->with('test')->get();
-        $userTests = Test::where('user_id', Auth::id())->withCount('likes')->get();
+        $uncompleteUserTests = Test::personal(0);
+        $userTests = Test::personal(1);
         $favoritesTests = User::find(Auth::id())->favoritesTests;
 
         return view('home', [
             'decidedCounter' => $decidedCounter,
             'shortHistory' => $shortHistory,
+            'uncompleteUserTests' => $uncompleteUserTests,
             'userTests' => $userTests,
             'favoritesTests' => $favoritesTests
         ]);

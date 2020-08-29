@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
  * @property-read int|null $likes_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Question[] $questions
  * @property-read int|null $questions_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Test personal($complete)
  */
 class Test extends Model
 {
@@ -58,5 +59,12 @@ class Test extends Model
             return $isLike;
         }
         return 0;
+    }
+
+    public function scopePersonal($query,$complete)
+    {
+        return $query->where('user_id', Auth::id())
+                     ->where('is_complete',$complete)
+                     ->withCount('likes')->get();
     }
 }

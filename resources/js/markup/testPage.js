@@ -35,7 +35,7 @@ let sendTest = function(form) {
             }
         })
         .then(data=> {
-            tesultText.textContent = `Поздравляем, вы ответили правильно на ${data.correct} вопросов из ${answers.length}.`;
+            tesultText.textContent = `Поздравляем, вы прошли тест. Правильно ${data.correct} из ${answers.length}.`;
             detailLink.href=data.detail_link;
         })
         .catch(error => {

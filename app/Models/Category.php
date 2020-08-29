@@ -18,6 +18,9 @@ class Category extends Model
 
     public function tests()
     {
-        return $this->hasMany('App\Models\Test')->withCount('likes')->orderBy('likes_count', 'desc');
+        return $this->hasMany('App\Models\Test')
+                    ->where('is_complete',1)
+                    ->withCount('likes')
+                    ->orderBy('likes_count', 'desc');
     }
 }

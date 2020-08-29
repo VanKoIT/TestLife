@@ -297,6 +297,8 @@ h6 {
 .test-preview__stat {
     max-width: 100px;
     min-width: auto;
+    margin-left: auto;
+    margin-right: 5px;
     height: 18px;
     display: flex;
     justify-content: flex-end;
@@ -317,6 +319,12 @@ h6 {
     border: 0;
     background: url('../img/heart.svg') no-repeat center center;
     cursor: pointer;
+}
+.basket-btn {
+    width: 21px;
+    height: 25px;
+    background-image: url('../img/basket.svg');
+    background-size: cover;
 }
 .test-preview__btn.pressed {
     background: url("../img/heartDark.svg") no-repeat center center;
@@ -676,4 +684,12 @@ h6 {
 }
 .visually-hidden {
     visibility: hidden;
+}
+.test__author-mark {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 1px;
+    padding: 5px 10px;
+    background: rgba(255, 117, 117, 0.7);
 }

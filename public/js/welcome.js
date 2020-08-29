@@ -49,8 +49,17 @@ const body = document.querySelector('body');
 const regBtn = document.querySelector('.header__user');
 const modal = document.querySelector('.modal');
 const modalForm = document.querySelector('.modal__window');
+const deleteBtns = document.querySelectorAll('.delete-btn');
+const likes = document.querySelectorAll('.like-btn');
 
-const likes = document.querySelectorAll('.test-preview__btn');
+deleteBtns.forEach(function(elem) {
+    elem.addEventListener('click', function(e) {
+        e.preventDefault();
+        let target = e.target;
+        let deleteElem = target.closest('.test-preview');
+        deleteTest(deleteElem, true);
+    })
+})
 
 let fixedHeader = function() {
     let scrollOffset = window.pageYOffset;

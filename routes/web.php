@@ -23,15 +23,18 @@ Route::get('home', 'HomeController@index')->name('home');
 Route::post('email/exist', 'CheckController@emailExist');
 
 Route::middleware('auth')->group(function () {
+    Route::match(['get', 'post'], 'tests/add', 'TestController@add')
+         ->name('testAdd');
+    Route::post('tests/delete/{testId}', 'TestController@delete')
+         ->name('testDelete')->middleware('test.author');
+
     Route::middleware('test.guest')->group(function () {
-        Route::get('tests/{testId}', 'QuestionController@index')
+        Route::get('tests/{testId}', 'TestController@showQuestions')
              ->name('testQuestions');
         Route::post('like/add', 'LikeController@likeAdd');
         Route::post('like/delete', 'LikeController@likeDelete');
     });
 
-    /*Route::match(['get', 'post'], 'tests/add', 'TestController@add')
-         ->name('testAdd');*/
     Route::get('history/{testId}', 'HomeController@history')
          ->name('testHistory')->middleware('test.author');
     Route::get('result/{attemptId}', 'ResultController@displayAttempt')

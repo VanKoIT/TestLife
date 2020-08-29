@@ -64,3 +64,32 @@ let sendRequest = function (e, form, isLogin) {
             }
         })
 }
+
+let deleteTest = function (deleteElem, withCategory) {
+    let userAccept = confirm('Удаление теста приведёт к удалению всех его вопросов, ответов, лайков, прохождений. Вы действительно хотите удалить тест?');
+
+    if(userAccept) {
+        let id = deleteElem.dataset.test_id;
+        let URL = `/tests/delete/${id}`;
+
+        fetch(URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+        })
+            .then(response => {
+                if(response.ok) {
+                    if(withCategory) {
+                        let categoryParent = deleteElem.closest('.tests__group');
+                        let categoryItems = categoryParent.querySelectorAll('.test-preview');
+                        console.log(categoryItems.length);
+                        if(categoryItems.length===1) categoryParent.remove();
+                        else deleteElem.remove();
+                    } else deleteElem.remove();
+                }
+            })
+    }
+
+}

@@ -125,7 +125,7 @@ p {
 }
 .nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     height: 80px;
 }
@@ -147,6 +147,22 @@ p {
 .nav__btn:focus {
     color: #FF7575;
 }
+.nav__link {
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 35px;
+    width: 360px;
+    padding: 7px 0;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+}
+.nav__link:hover {
+    border: 3px solid #FF7575;
+}
+.nav__link:active {
+    color: #FF7575;
+}
 .person {
     width: 100%;
     height: 100vh;
@@ -166,21 +182,24 @@ p {
     margin-bottom: 61px;
 }
 .user__info {
-    width: 100%;
-    height: 150px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: space-around;
-    padding-left: 200px;
-    background: url('../img/avatar.jpg') no-repeat 0 0;
     font-weight: bold;
     font-size: 30px;
     line-height: 35px;
     color: #000;
     margin-bottom: 40px;
 }
+.user__ava {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
 .user__name {
     width: 100%;
+    margin-left: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -336,7 +355,13 @@ p {
     font-size: 50px;
     line-height: 59px;
     color: #000;
-    margin-bottom: 54px;
+    margin-bottom: 25px;
+}
+.person-tests__subtitle {
+    margin-bottom: 10px;
+}
+.person-tests__description {
+    margin-bottom: 10px;
 }
 .person-tests__list {
     width: 100%;
@@ -428,6 +453,15 @@ p {
     color: #565656;
     overflow: hidden;
 }
+.person-tests__stat {
+    max-width: 100px;
+    min-width: auto;
+    margin-left: auto;
+    margin-right: 5px;
+    height: 18px;
+    display: flex;
+    justify-content: flex-end;
+}
 .person-tests__btn {
     min-width: 21px;
     width: 21px;
@@ -437,6 +471,22 @@ p {
     border: 0;
     background: url('../img/heart.svg') no-repeat center center;
     cursor: pointer;
+}
+.person-tests__btn {
+    min-width: 21px;
+    width: 21px;
+    height: 18px;
+    margin: 0 0 0 8px;
+    padding: 0;
+    border: 0;
+    background: url('../img/heart.svg') no-repeat center center;
+    cursor: pointer;
+}
+.basket-btn {
+    width: 21px;
+    height: 25px;
+    background-image: url('../img/basket.svg');
+    background-size: cover;
 }
 .person-tests__btn.pressed {
     background: url("../img/heartDark.svg") no-repeat center center;

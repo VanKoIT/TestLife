@@ -3,6 +3,12 @@
 @section('styles')
     <link href="{{ asset('css/home.css')}}" rel="stylesheet">
 @endsection
+@section('nav')
+    <nav class="nav">
+        <a href="/" class="nav__link">Топ тестов</a>
+        <a href="#" class="nav__link">Найти тест</a>
+    </nav>
+@endsection
 
 @section('content')
     <main class="person">

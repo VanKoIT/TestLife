@@ -21,6 +21,7 @@
             <section class="user">
                 <h1 class="user__title">Личный кабинет</h1>
                 <div class="user__info">
+                    <img class="user__ava" src="{{asset('img/avatar.jpg')}}" alt="ava">
                     <div class="user__name">{{Auth::user()->name}}</div>
                 </div>
                 <a class="user__redaction-link" href="dev">
@@ -68,12 +69,40 @@
     <section class="person-tests hidden">
         <div class="center">
             <h1 class="person-tests__title">Мои тесты</h1>
+            @if(count($uncompleteUserTests))
+                <h2 class="person-tests__subtitle">Незавершенные тесты</h2>
+                <p class="person-tests__description">Необходимо добавить вопросы и ответы к тестам</p>
+                <ul class="person-tests__list">
+                    @foreach($uncompleteUserTests as $test)
+                        <li class="person-tests__item" data-test_id="{{$test->id}}">
+                            <h2 class="person-tests__category">
+                                {{$test->category->name}}
+                            </h2>
+                            <a class="person-tests__logo"
+                               @isset($test->photo_link)                                              style="background-image: url('{{asset($test->photo_link)}}')"
+                               @endisset
+                               href="{{route('testHistory',$test->id)}}"></a>
+                            <div class="person-tests__content">
+                                <span class="person-tests__name">{{$test->title}}</span>
+                                <div class="person-tests__delete">
+                                    <button
+                                        class="person-tests__btn basket-btn delete-btn"><span
+                                            class="visually-hidden">like</span></button>
+                                </div>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+                <h2 class="person-tests__subtitle">Готовые тесты</h2>
+            @endif
             <ul class="person-tests__list">
                 <li class="person-tests__item">
-                    <button class="person-tests__add">Add test</button>
+                    <a href="{{route('testAdd')}}">
+                        <button class="person-tests__add">Add test</button>
+                    </a>
                 </li>
                 @foreach($userTests as $test)
-                    <li class="person-tests__item">
+                    <li class="person-tests__item" data-test_id="{{$test->id}}">
                         <h2 class="person-tests__category">
                             {{$test->category->name}}
                         </h2>
@@ -91,8 +120,12 @@
                                     <span class="visually-hidden">like</span>
                                 </button>
                             </div>
+                            <div class="person-tests__delete">
+                                <button
+                                    class="person-tests__btn basket-btn delete-btn"><span
+                                        class="visually-hidden">like</span></button>
+                            </div>
                         </div>
-                        <button class="person-tests__redact">Redact</button>
                     </li>
                 @endforeach
             </ul>

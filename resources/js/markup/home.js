@@ -6,7 +6,7 @@ const personPage = document.querySelector('.person');
 const personTestsPage = document.querySelector('.person-tests');
 const chosenTestsPage = document.querySelector('.chosen-tests');
 const footerSoc = document.querySelector('.footer-social');
-
+const deleteBtns = document.querySelectorAll('.delete-btn');
 
 let showPersonTests = function() {
     personPage.classList.add('hidden');
@@ -38,8 +38,16 @@ chosenTestsBtn.addEventListener('click', showChosenTests);
 
 personBtn.addEventListener('click', showPerson);
 
+deleteBtns.forEach(function(elem) {
+    elem.addEventListener('click', function(e) {
+        e.preventDefault();
+        let target = e.target;
+        let deleteElem = target.closest('.person-tests__item');
+        deleteTest(deleteElem);
+    })
+})
 // Fetch on personTestsPage
-const createTestBtn = document.querySelector('.person-tests__add');
+/*const createTestBtn = document.querySelector('.person-tests__add');
 
 let getResponseCreate = function(URL) {
 
@@ -62,7 +70,7 @@ let getResponseCreate = function(URL) {
 createTestBtn.addEventListener('click', (evt) => {
     evt.preventDefault();
     getResponseCreate('serverURL');
-});
+});*/
 
 let redirectOnTest = document.querySelectorAll('.person-tests__logo');
 
@@ -117,12 +125,12 @@ let postResponseRedact = function(URL, item) {
         .catch(error => console.log(error))
 }
 
-redirectOnRedactTest.forEach((elem) => {
+/*redirectOnRedactTest.forEach((elem) => {
     elem.addEventListener('click', (evt) => {
         evt.preventDefault();
         postResponseRedact('serverURL', elem);
     });
-});
+});*/
 
 // Likes on personTestsPage
 
