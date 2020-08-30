@@ -65,11 +65,11 @@ class TestController extends Controller
     public function addQuestions(Request $request)
     {
         if ($request->isMethod('get')) {
-            $test = Test::findOrFail($request->testId);
+            $test = Test::where('is_complete',0)->findOrFail($request->testId);
             return view('tests.addQuestions',['test' => $test]);
         } elseif ($request->isMethod('post')) {
             $questions = $request->input('questions');
-            $test = Test::findOrFail($request->testId);
+            $test = Test::where('is_complete',0)->findOrFail($request->testId);
 
             foreach ($questions as $question) {
                 $testQuestion = $test->questions()->create([

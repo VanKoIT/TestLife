@@ -238,6 +238,7 @@ p {
 }
 .redactor-content__info-head {
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
 }
 .redactor-content__avatar {

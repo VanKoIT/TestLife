@@ -45,6 +45,11 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                    @error('image')
+                                    <div>
+                                        <span class="redactor__error-msg">{{ $message }}</span>
+                                    </div>
+                                    @enderror
                                 </div>
                                 <textarea class="redactor-content__test-info" name="description"
                                           placeholder="Описание теста" minlength="3" maxlength="500"

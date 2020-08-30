@@ -18,7 +18,7 @@ class CheckTestGuest
     public function handle($request, Closure $next)
     {
         $testId=$request->testId??$request->input('test_id');
-        $testAuthorId=Test::find($testId)->user_id;
+        $testAuthorId=Test::findOrFail($testId)->user_id;
         if(Auth::id()===$testAuthorId) {
             if($request->expectsJson()) {
                 return abort(422,'Test author can not like it');

@@ -17,7 +17,7 @@ class CheckTestAuthor
      */
     public function handle($request, Closure $next)
     {
-        $testAuthorId=Test::find($request->testId)->user_id;
+        $testAuthorId=Test::findOrFail($request->testId)->user_id;
         if(Auth::id()!==$testAuthorId) return abort(403);
         return $next($request);
     }

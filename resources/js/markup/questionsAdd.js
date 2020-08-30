@@ -139,7 +139,8 @@ let saveBtn = document.querySelector('.redactor-content__save-questions');
 
 saveBtn.addEventListener('click', (evt) => {
     let questions = document.querySelectorAll('.redactor-content__question');
-    let valid = true;
+    let questionsValid = true;
+    let answersValid = true;
     let questionsArr = [];
 
     questions.forEach((question) => {
@@ -147,19 +148,30 @@ saveBtn.addEventListener('click', (evt) => {
         let answers = question.querySelectorAll('.answer-list__input');
         if (questionText.length) {
             questionsArr.push({'text': questionText, 'answers': []});
-        } else valid = false;
-        answers.forEach((answer) => {
-            if (answer.value.length) {
-                let lastQuestion = questionsArr[questionsArr.length - 1];
-                let answerCorrect = answer.previousElementSibling.checked ? 1 : 0;
-                lastQuestion['answers'].push({
-                    'text': answer.value,
-                    'is_correct': answerCorrect
-                });
-            } else valid = false;
-        });
+
+            answers.forEach((answer) => {
+                if (answer.value.length) {
+                    let lastQuestion = questionsArr[questionsArr.length - 1];
+                    let answerCorrect = answer.previousElementSibling.checked ? 1 : 0;
+                    lastQuestion['answers'].push({
+                        'text': answer.value,
+                        'is_correct': answerCorrect
+                    });
+                } else answersValid = false;
+            });
+        } else questionsValid = false;
     });
-    if (valid) {
+
+    if (!questionsValid) {
+        let saveAccept = confirm('Есть незаполненные вопросы. Вопросы с пустым текстом и их ответы не будут добавлены');
+        if(!saveAccept) return false;
+    }
+    if (!answersValid) {
+        alert('Есть незаполненные варианты ответов. Пожалуйста, заполните пустые поля');
+        return false;
+    }
+
+    if(questionsArr.length) {
         let URL = location.pathname;
         fetch(URL, {
             method: 'POST',
@@ -170,10 +182,9 @@ saveBtn.addEventListener('click', (evt) => {
             body: JSON.stringify({'questions': questionsArr})
         })
             .then(response => {
-                if(response.ok) location.assign('/');
+                if (response.ok) location.assign('/');
             })
-    } else {
-        alert('Есть незаполненные вопросы или варианты ответов. Пожалуйста, заполните пустые поля');
     }
+
 
 });

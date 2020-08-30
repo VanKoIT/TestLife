@@ -186,6 +186,7 @@ p {
 .test-content__info,
 .test-content__result {
     max-width: 1192px;
+    min-height: 250px;
     margin-left: 65px;
     font-size: 30px;
     line-height: 35px;
