@@ -35,8 +35,12 @@ Route::middleware('auth')->group(function () {
         Route::post('like/delete', 'LikeController@likeDelete');
     });
 
-    Route::get('history/{testId}', 'HomeController@history')
-         ->name('testHistory')->middleware('test.author');
+    Route::middleware('test.author')->group(function () {
+        Route::get('history/{testId}', 'HomeController@history')
+             ->name('testHistory');
+        Route::match(['get', 'post'], 'tests/{testId}/questions', 'TestController@addQuestions')
+             ->name('addQuestions');
+    });
     Route::get('result/{attemptId}', 'ResultController@displayAttempt')
          ->middleware('attempt.user')->name('testResult');
     Route::post('result', 'ResultController@saveResults');

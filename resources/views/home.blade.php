@@ -81,7 +81,7 @@
                             <a class="person-tests__logo"
                                @isset($test->photo_link)                                              style="background-image: url('{{asset($test->photo_link)}}')"
                                @endisset
-                               href="{{route('testHistory',$test->id)}}"></a>
+                               href="{{route('addQuestions',$test->id)}}"></a>
                             <div class="person-tests__content">
                                 <span class="person-tests__name">{{$test->title}}</span>
                                 <div class="person-tests__delete">

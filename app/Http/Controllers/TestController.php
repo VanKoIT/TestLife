@@ -26,6 +26,11 @@ class TestController extends Controller
         return view('welcome', ['categories' => $categories]);
     }
 
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function add(Request $request)
     {
         if ($request->isMethod('get')) {
@@ -47,10 +52,40 @@ class TestController extends Controller
                 'description' => $request->description,
                 'photo_link' => $path
             ]);
-            return redirect('/');
+            return redirect()->route('addQuestions',$test->id);
         }
     }
 
+
+    /**
+     * Save test questions and answers
+     * @param Request $request
+     * @return null
+     */
+    public function addQuestions(Request $request)
+    {
+        if ($request->isMethod('get')) {
+            $test = Test::findOrFail($request->testId);
+            return view('tests.addQuestions',['test' => $test]);
+        } elseif ($request->isMethod('post')) {
+            $questions = $request->input('questions');
+            $test = Test::findOrFail($request->testId);
+
+            foreach ($questions as $question) {
+                $testQuestion = $test->questions()->create([
+                    'text' => $question['text']
+                ]);
+
+                $testQuestion->answers()->createMany($question['answers']);
+            }
+            $test->update(['is_complete' => 1]);
+        }
+    }
+    /**
+     * Delete test by id with questions, answers, likes and attempts
+     * @param $testId
+     * @return mixed
+     */
     public function delete($testId) {
         Test::destroy($testId);
     }

@@ -30,6 +30,7 @@ class SeederService {
             'user_id' => $this->getRandomUserId(),
             'category_id' => $this->getCategoryId($category),
             'title' => $title,
+            'is_complete' => 1,
             'description'=>$description,
             'photo_link' => 'images/'.$img
         ];

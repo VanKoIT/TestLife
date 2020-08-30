@@ -17,6 +17,8 @@ class Question extends Model
 {
     public $timestamps = false;
 
+    protected $guarded = ['id'];
+
     public function answers()
     {
         return $this->hasMany('App\Models\Answer');

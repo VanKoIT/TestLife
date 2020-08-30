@@ -17,6 +17,8 @@ class Answer extends Model
 {
     public $timestamps = false;
 
+    protected $guarded = ['id'];
+
     public function question()
     {
         return $this->belongsTo('App\Models\Question');
