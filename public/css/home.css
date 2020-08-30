@@ -165,14 +165,14 @@ p {
 }
 .person {
     width: 100%;
-    height: 100vh;
+    height: 91vh;
     padding: 78px 0 160px 0;
     background: #fff;
+    overflow-y: auto;
 }
 .user {
     width: 685px;
     height: auto;
-    overflow: hidden;
 }
 .user__title {
     font-size: 50px;
