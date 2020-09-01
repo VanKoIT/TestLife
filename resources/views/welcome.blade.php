@@ -42,7 +42,7 @@
                                             @endif
                                             <a class="test-preview__logo"
                                                @isset($test->photo_link)
-                                               style="background-image: url('{{asset($test->photo_link)}}')"
+                                               style="background-image: url('{{asset('/storage/app/public/'.$test->photo_link)}}')"
                                                @endisset
                                                href="{{route('testQuestions',$test->id)}}"></a>
                                             <div class="test-preview__content">

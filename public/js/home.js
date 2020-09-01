@@ -192,30 +192,7 @@ likes.forEach(function(elem) {
 
 // Chosen-tests
 
-const searchTestBtn = document.querySelector('.chosen-tests__search');
 
-let getResponseSearch = function(URL) {
-
-    let response = fetch(URL, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify()
-    })
-        .then(response => {
-            if (response.ok) {
-                response.json();
-                window.location.href = 'URL страницы "в разработке"';
-            }
-        })
-        .catch(error => console.log(error))
-}
-
-searchTestBtn.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    getResponseSearch('serverURL');
-});
 
 // let postResponseDelete = function(URL, elem) {
 //     let data = [];

@@ -79,7 +79,8 @@
                                 {{$test->category->name}}
                             </h2>
                             <a class="person-tests__logo"
-                               @isset($test->photo_link)                                              style="background-image: url('{{asset($test->photo_link)}}')"
+                               @isset($test->photo_link)                                              
+                               style="background-image: url('{{asset('/storage/app/public/'.$test->photo_link)}}')"
                                @endisset
                                href="{{route('addQuestions',$test->id)}}"></a>
                             <div class="person-tests__content">
@@ -107,7 +108,8 @@
                             {{$test->category->name}}
                         </h2>
                         <a class="person-tests__logo"
-                           @isset($test->photo_link)                                              style="background-image: url('{{asset($test->photo_link)}}')"
+                           @isset($test->photo_link)
+                           style="background-image: url('{{asset('/storage/app/public/'.$test->photo_link)}}')"
                            @endisset
                            href="{{route('testHistory',$test->id)}}"></a>
                         <div class="person-tests__content">
@@ -136,7 +138,9 @@
         <div class="center">
             <div class="chosen-tests__title">
                 <h1 class="chosen-tests__title-text">Избранные</h1>
-                <button class="chosen-tests__search" type="button">Найти</button>
+                <a href="/">
+                    <button class="chosen-tests__search" type="button">Найти</button>
+                </a>
             </div>
             <ul class="chosen-tests__list">
                 @forelse($favoritesTests as $test)
@@ -145,7 +149,8 @@
                             {{$test->category->name}}
                         </h2>
                         <a class="chosen-tests__logo"
-                           @isset($test->photo_link)                                            style="background-image: url('{{asset($test->photo_link)}}')"
+                           @isset($test->photo_link)
+                           style="background-image: url('{{asset('/storage/app/public/'.$test->photo_link)}}')"
                            @endisset
                            href="{{route('testQuestions',$test->id)}}"></a>
                         <div class="chosen-tests__content">

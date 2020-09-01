@@ -32,7 +32,7 @@ class HomeController extends Controller
                                ->with('test')->get();
         $uncompleteUserTests = Test::personal(0);
         $userTests = Test::personal(1);
-        $favoritesTests = User::find(Auth::id())->favoritesTests;
+        $favoritesTests = User::find(Auth::id())->favoritesTests->reverse();
 
         return view('home', [
             'decidedCounter' => $decidedCounter,

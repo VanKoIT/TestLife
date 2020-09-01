@@ -470,23 +470,14 @@ p {
     padding: 0;
     border: 0;
     background: url('../img/heart.svg') no-repeat center center;
-    cursor: pointer;
-}
-.person-tests__btn {
-    min-width: 21px;
-    width: 21px;
-    height: 18px;
-    margin: 0 0 0 8px;
-    padding: 0;
-    border: 0;
-    background: url('../img/heart.svg') no-repeat center center;
-    cursor: pointer;
+    cursor: auto;
 }
 .basket-btn {
     width: 21px;
     height: 25px;
     background-image: url('../img/basket.svg');
     background-size: cover;
+    cursor: pointer;
 }
 .person-tests__btn.pressed {
     background: url("../img/heartDark.svg") no-repeat center center;

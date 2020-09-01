@@ -22,7 +22,8 @@ class TestController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('tests')->get();
+        $categories = Category::withCount('tests')
+                                ->orderBy('tests_count','desc')->get();
         return view('welcome', ['categories' => $categories]);
     }
 
@@ -41,7 +42,7 @@ class TestController extends Controller
                 'category' => 'required',
                 'title' => 'required|max:255',
                 'description' => 'required',
-                'image' => 'image'
+                'image' => 'mimes:jpeg,jpg,png,bmp'
             ]);
             $path=$request->file('image')->store('images','public');
 

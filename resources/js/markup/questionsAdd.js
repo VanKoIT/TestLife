@@ -40,7 +40,7 @@ let activationAddAnswer = function () {
             <span class="visually-hidden">Del</span>
         </button>
         <input class="answer-list__radio" name="question1" type="radio">
-        <input class="answer-list__input" name="${newName}" type="text" placeholder="Ответ" minlength="5" maxlength="50">
+        <input class="answer-list__input" name="${newName}" type="text" placeholder="Ответ" minlength="3" required>
         <span></span>
     </label>
     </li>`);
@@ -77,7 +77,7 @@ addQuestionBtn.addEventListener('click', (evt) => {
 
     mySwiper.appendSlide(`<div class="swiper-slide">
     <fieldset class="redactor-content__question">
-    <textarea class="redactor-content__question-text" name="question" placeholder="Вопрос" minlength="5" maxlength="150" required></textarea>
+    <textarea class="redactor-content__question-text" name="question" placeholder="Вопрос" minlength="3" required></textarea>
     <ul class="answer-list">
         <li class="answer-list__item">
             <button type="button" class="answer-list__item-del">
@@ -85,7 +85,7 @@ addQuestionBtn.addEventListener('click', (evt) => {
             </button>
             <label>
                 <input class="answer-list__radio" name="${newName}" type="radio" required checked>
-                <input class="answer-list__input" name="1" type="text" placeholder="Ответ" minlength="5" maxlength="50" required>
+                <input class="answer-list__input" name="1" type="text" placeholder="Ответ" minlength="3" required>
                 <span></span>
             </label>
         </li>
@@ -95,7 +95,7 @@ addQuestionBtn.addEventListener('click', (evt) => {
             </button>
             <label>
                 <input class="answer-list__radio" name="${newName}" type="radio">
-                <input class="answer-list__input" name="2" type="text" placeholder="Ответ" minlength="5" maxlength="50" required>
+                <input class="answer-list__input" name="2" type="text" placeholder="Ответ" minlength="3" required>
                 <span></span>
             </label>
         </li>
@@ -105,7 +105,7 @@ addQuestionBtn.addEventListener('click', (evt) => {
             </button>
             <label>
                 <input class="answer-list__radio" name="${newName}" type="radio">
-                <input class="answer-list__input" name="3" type="text" placeholder="Ответ" minlength="5" maxlength="50">
+                <input class="answer-list__input" name="3" type="text" placeholder="Ответ" minlength="3" required>
                 <span></span>
             </label>
         </li>
@@ -115,7 +115,7 @@ addQuestionBtn.addEventListener('click', (evt) => {
             </button>
             <label>
                 <input class="answer-list__radio" name="${newName}" type="radio">
-                <input class="answer-list__input" name="4" type="text" placeholder="Ответ" minlength="5" maxlength="50">
+                <input class="answer-list__input" name="4" type="text" placeholder="Ответ" minlength="3" required>
                 <span></span>
             </label>
         </li>

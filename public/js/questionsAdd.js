@@ -5,6 +5,7 @@ let mySwiper = new Swiper('.swiper-container', {
     speed: 400,
     spaceBetween: 0,
     slidesPerView: 1,
+    simulateTouch: false,
     autoHeight: false,
     height: 972,
 
@@ -33,14 +34,21 @@ let activationAddAnswer = function () {
         let lastName = prevBlock.querySelector('.answer-list__input').name;
         let newName = Number(lastName) + 1;
         let parent = evt.target.closest('.answer-list__item');
+        let questionsSlides = document.querySelectorAll('.swiper-slide');
+        let questionNumber = null;
+        for (let i = 0; i < questionsSlides.length; i++) {
+            if (questionsSlides[i] === parent.closest('.swiper-slide')) {
+                questionNumber = i + 1;
+            }
+        }
 
         parent.insertAdjacentHTML('beforebegin', `<li class="answer-list__item">
-    <label>
         <button type="button" class="answer-list__item-del">
             <span class="visually-hidden">Del</span>
         </button>
-        <input class="answer-list__radio" name="question1" type="radio">
-        <input class="answer-list__input" name="${newName}" type="text" placeholder="Ответ" minlength="5" maxlength="50">
+    <label>
+        <input class="answer-list__radio" name="${questionNumber}" type="radio">
+        <input class="answer-list__input" name="${newName}" type="text" placeholder="Ответ" minlength="3">
         <span></span>
     </label>
     </li>`);
@@ -77,7 +85,7 @@ addQuestionBtn.addEventListener('click', (evt) => {
 
     mySwiper.appendSlide(`<div class="swiper-slide">
     <fieldset class="redactor-content__question">
-    <textarea class="redactor-content__question-text" name="question" placeholder="Вопрос" minlength="5" maxlength="150" required></textarea>
+    <textarea class="redactor-content__question-text" name="question" placeholder="Вопрос" minlength="3" required></textarea>
     <ul class="answer-list">
         <li class="answer-list__item">
             <button type="button" class="answer-list__item-del">
@@ -85,7 +93,7 @@ addQuestionBtn.addEventListener('click', (evt) => {
             </button>
             <label>
                 <input class="answer-list__radio" name="${newName}" type="radio" required checked>
-                <input class="answer-list__input" name="1" type="text" placeholder="Ответ" minlength="5" maxlength="50" required>
+                <input class="answer-list__input" name="1" type="text" placeholder="Ответ" minlength="3" required>
                 <span></span>
             </label>
         </li>
@@ -95,7 +103,7 @@ addQuestionBtn.addEventListener('click', (evt) => {
             </button>
             <label>
                 <input class="answer-list__radio" name="${newName}" type="radio">
-                <input class="answer-list__input" name="2" type="text" placeholder="Ответ" minlength="5" maxlength="50" required>
+                <input class="answer-list__input" name="2" type="text" placeholder="Ответ" minlength="3" required>
                 <span></span>
             </label>
         </li>
@@ -105,7 +113,7 @@ addQuestionBtn.addEventListener('click', (evt) => {
             </button>
             <label>
                 <input class="answer-list__radio" name="${newName}" type="radio">
-                <input class="answer-list__input" name="3" type="text" placeholder="Ответ" minlength="5" maxlength="50">
+                <input class="answer-list__input" name="3" type="text" placeholder="Ответ" minlength="3" required>
                 <span></span>
             </label>
         </li>
@@ -115,7 +123,7 @@ addQuestionBtn.addEventListener('click', (evt) => {
             </button>
             <label>
                 <input class="answer-list__radio" name="${newName}" type="radio">
-                <input class="answer-list__input" name="4" type="text" placeholder="Ответ" minlength="5" maxlength="50">
+                <input class="answer-list__input" name="4" type="text" placeholder="Ответ" minlength="3" required>
                 <span></span>
             </label>
         </li>
@@ -141,11 +149,15 @@ saveBtn.addEventListener('click', (evt) => {
     let questions = document.querySelectorAll('.redactor-content__question');
     let questionsValid = true;
     let answersValid = true;
+    let correctExist = false;
+    let correctExistArr = [];
     let questionsArr = [];
 
-    questions.forEach((question) => {
+    questions.forEach((question,i) => {
         let questionText = question.querySelector('.redactor-content__question-text').value;
         let answers = question.querySelectorAll('.answer-list__input');
+        correctExist = false;
+
         if (questionText.length) {
             questionsArr.push({'text': questionText, 'answers': []});
 
@@ -153,25 +165,30 @@ saveBtn.addEventListener('click', (evt) => {
                 if (answer.value.length) {
                     let lastQuestion = questionsArr[questionsArr.length - 1];
                     let answerCorrect = answer.previousElementSibling.checked ? 1 : 0;
+                    if (answerCorrect) correctExist = true;
                     lastQuestion['answers'].push({
                         'text': answer.value,
                         'is_correct': answerCorrect
                     });
                 } else answersValid = false;
             });
+            correctExistArr.push(correctExist);
         } else questionsValid = false;
     });
 
     if (!questionsValid) {
-        let saveAccept = confirm('Есть незаполненные вопросы. Вопросы с пустым текстом и их ответы не будут добавлены');
-        if(!saveAccept) return false;
+        let saveAccept = confirm('Есть незаполненные вопросы. Вопросы с пустым текстом и их ответы не будут добавлены.');
+        if (!saveAccept) return false;
     }
     if (!answersValid) {
-        alert('Есть незаполненные варианты ответов. Пожалуйста, заполните пустые поля');
+        alert('Есть незаполненные варианты ответов. Пожалуйста, заполните пустые поля или удалите их.');
+        return false;
+    } else if(correctExistArr.indexOf(false) !== -1) {
+        alert('Есть вопросы у которых не выбран правильный вариант ответа или он не заполенен.');
         return false;
     }
 
-    if(questionsArr.length) {
+    if (questionsArr.length) {
         let URL = location.pathname;
         fetch(URL, {
             method: 'POST',
@@ -184,6 +201,8 @@ saveBtn.addEventListener('click', (evt) => {
             .then(response => {
                 if (response.ok) location.assign('/');
             })
+    } else {
+        alert('Нужно добавить хотя бы 1 вопрос');
     }
 
 

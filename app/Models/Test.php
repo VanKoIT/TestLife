@@ -65,6 +65,7 @@ class Test extends Model
     {
         return $query->where('user_id', Auth::id())
                      ->where('is_complete',$complete)
+                     ->orderBy('id','desc')
                      ->withCount('likes')->get();
     }
 }

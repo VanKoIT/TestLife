@@ -262,14 +262,14 @@ p {
     height: 200px;
     border: 0;
     background: url('../img/add-item.svg') no-repeat center center, #c4c4c4;
-    background-size: 60%;
+    background-size: 45%;
     cursor: pointer;
     margin-bottom: 20px;
     margin-right: 150px;
 }
 .redactor-content__avatar-label:hover {
     background: url('../img/add-item.svg') no-repeat center center, #777;
-    background-size: 60%;
+    background-size: 45%;
 }
 .redactor-content__category {
     width: 360px;

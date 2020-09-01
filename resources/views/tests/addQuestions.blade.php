@@ -31,7 +31,7 @@
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <fieldset class="redactor-content__question">
-                                <textarea class="redactor-content__question-text" name="question" placeholder="Вопрос" minlength="5" maxlength="150" required></textarea>
+                                <textarea class="redactor-content__question-text" name="question" placeholder="Вопрос" minlength="3" required></textarea>
                                 <ul class="answer-list">
                                     <li class="answer-list__item">
                                         <button type="button" class="answer-list__item-del">
@@ -39,7 +39,7 @@
                                         </button>
                                         <label>
                                             <input class="answer-list__radio" name="1" type="radio" required checked>
-                                            <input class="answer-list__input" name="1" type="text" placeholder="Ответ" minlength="5" maxlength="50" required>
+                                            <input class="answer-list__input" name="1" type="text" placeholder="Ответ" minlength="3" required>
                                             <span></span>
                                         </label>
                                     </li>
@@ -49,7 +49,7 @@
                                         </button>
                                         <label>
                                             <input class="answer-list__radio" name="1" type="radio">
-                                            <input class="answer-list__input" name="2" type="text" placeholder="Ответ" minlength="5" maxlength="50" required>
+                                            <input class="answer-list__input" name="2" type="text" placeholder="Ответ" minlength="3" required>
                                             <span></span>
                                         </label>
                                     </li>
@@ -59,7 +59,7 @@
                                         </button>
                                         <label>
                                             <input class="answer-list__radio" name="1" type="radio">
-                                            <input class="answer-list__input" name="3" type="text" placeholder="Ответ" minlength="5" maxlength="50">
+                                            <input class="answer-list__input" name="3" type="text" placeholder="Ответ" minlength="3">
                                             <span></span>
                                         </label>
                                     </li>
@@ -69,7 +69,7 @@
                                         </button>
                                         <label>
                                             <input class="answer-list__radio" name="1" type="radio">
-                                            <input class="answer-list__input" name="4" type="text" placeholder="Ответ" minlength="5" maxlength="50">
+                                            <input class="answer-list__input" name="4" type="text" placeholder="Ответ" minlength="3">
                                             <span></span>
                                         </label>
                                     </li>
